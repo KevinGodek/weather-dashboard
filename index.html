@@ -11,7 +11,99 @@
   <title>Weather Dashboard</title>
 </head>
 <body>
-  
+  <div id="header">
+    <h1>Weather Dashboard</h1>
+</div>
+
+<main class="flex-row justify-space-between">
+
+    <!-- Search Column-->
+    <div class="col-12 col-md-3" id="searchSide">
+        <h2 class="form-label" for="username">Search for a City:</h2>
+        <form id="city-form">
+            <input name="cityName" id="cityName" type="text" autofocus="true" class="form-input" />
+            <button type="submit" id="searchButton" class="btn">Search</button>
+        </form>
+
+        <div id="savedLocations">
+
+        </div>
+
+    </div>
+
+    <!-- Weather Column -->
+    <div class="col-12 col-md-9" id="weatherSide">
+
+        <!-- Current Day -->
+        <div id="city-info">
+            <p style="float: left;" id="cityNameDateIcon"></p><img id="currentIcon" src="" height="50px" width="50px"></p>
+            <p id="currentTemp"></p>
+            <p id="currentWind"></p>
+            <p id="currentHumidity"></p>
+            <p id="uvFirstPart" style="float: left">UV Index: </p><button type="submit" id="currentUV" disabled></button>
+
+        </div>
+
+        <!-- Forcast -->
+        <div id="forcast">
+            <h3>5-Day Forcast:</h3>
+            <div class="container">
+                <div class="card-deck">
+                    <div class="card" style="width: 10rem;">
+                        <div class="card-body">
+                            <h5 class="card-title" id="titleDay-1"></h5>
+                            <img id="forcast-image-1" src=""/>
+                            <p id="tempDay-1"></p>
+                            <p id="windDay-1"></p>
+                            <p id="humidityDay-1"></p>
+                        </div>
+                    </div>
+
+                    <div class="card" style="width: 10rem;">
+                        <div class="card-body">
+                            <h5 class="card-title" id="titleDay-2"></h5>
+                            <img id="forcast-image-2" src=""/>
+                            <p id="tempDay-2"></p>
+                            <p id="windDay-2"></p>
+                            <p id="humidityDay-2"></p>
+                        </div>
+                    </div>
+
+                    <div class="card" style="width: 10rem;">
+                        <div class="card-body">
+                            <h5 class="card-title" id="titleDay-3"></h5>
+                            <img id="forcast-image-3" src=""/>
+                            <p id="tempDay-3"></p>
+                            <p id="windDay-3"></p>
+                            <p id="humidityDay-3"></p>
+                        </div>
+                    </div>
+
+                    <div class="card" style="width: 10rem;">
+                        <div class="card-body">
+                            <h5 class="card-title" id="titleDay-4"></h5>
+                            <img id="forcast-image-4" src=""/>
+                            <p id="tempDay-4"></p>
+                            <p id="windDay-4"></p>
+                            <p id="humidityDay-4"></p>
+                        </div>
+                    </div>
+
+                    <div class="card" style="width: 10rem;">
+                        <div class="card-body">
+                            <h5 class="card-title" id="titleDay-5"></h5>
+                            <img id="forcast-image-5" src=""/>
+                            <p id="tempDay-5"></p>
+                            <p id="windDay-5"></p>
+                            <p id="humidityDay-5"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</main>
 </body>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="assets/js/script.js"></script>
