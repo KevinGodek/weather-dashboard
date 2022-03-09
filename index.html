@@ -10,12 +10,12 @@
   <title>Weather Dashboard</title>
 </head>
 <body>
+
   <div id="header">
     <h1>Weather Dashboard</h1>
-</div>
+  </div>
 
 <main class="flex-row justify-space-between">
-
     <!-- Search Column-->
     <div class="col-12 col-md-3" id="searchSide">
         <h2 class="form-label" for="username">Search for a town:</h2>
@@ -23,24 +23,19 @@
             <input name="townName" id="townName" type="text" autofocus="true" class="form-input" />
             <button type="submit" id="searchButton" class="btn">Search</button>
         </form>
-
         <div id="savedLocations">
-
         </div>
-
     </div>
 
     <!-- Weather Column -->
     <div class="col-12 col-md-9" id="weatherSide">
-
-        <!-- Current Day -->
+        <!-- Current Date -->
         <div id="town-data">
             <p style="float: left;" id="townIcon"></p><img id="currentIcon" src="" height="50px" width="50px"></p>
             <p id="currentClimate"></p>
             <p id="currentWind"></p>
             <p id="currentHumidity"></p>
             <p id="uv" style="float: left">UV Index: </p><button type="submit" id="currentUVIndex" disabled></button>
-
         </div>
 
         <!-- forecast -->

@@ -94,20 +94,15 @@ function displayCurrentClimate(townInfo) {
     //humidity
     let humidity = townInfo.main.humidity;
     currentHumidityEl.textContent = "Humidity: " + humidity + " %";
-
     //wind speed
     let windSpeed = townInfo.wind.speed;
     currentWindEl.textContent = "Wind: " + windSpeed + " MPH";
-
     //town name
     townNameEl.textContent = town[0].toUpperCase() + town.slice(1) + " (" + currentDate + ")";
-
     currentImage.src = "http://www.openweathermap.org/img/wn/" + currentConditionIcon + "@2x.png";
-
-    //get lat and long to get uvindex
+    //get coordiantes for uvindex
     let townLat = townInfo.coord.lat;
     let townLong = townInfo.coord.lon;
-
     displayUvIndexForecast(townLat, townLong)
 }
 
@@ -158,14 +153,12 @@ function dispalyWeatherForecast(townforecast) {
     forecastIcon_3.src = "http://www.openweathermap.org/img/wn/" + icon_3 + "@2x.png";
     forecastIcon_4.src = "http://www.openweathermap.org/img/wn/" + icon_4 + "@2x.png";
     forecastIcon_5.src = "http://www.openweathermap.org/img/wn/" + icon_5 + "@2x.png";
-
     //wind
     forecastWind_1.textContent = "Wind: " + townforecast.daily[0].wind_speed + "MPH";
     forecastWind_2.textContent = "Wind: " + townforecast.daily[1].wind_speed + "MPH";
     forecastWind_3.textContent = "Wind: " + townforecast.daily[2].wind_speed + "MPH";
     forecastWind_4.textContent = "Wind: " + townforecast.daily[3].wind_speed + "MPH";
     forecastWind_5.textContent = "Wind: " + townforecast.daily[4].wind_speed + "MPH";
-
     //humidty
     forecastHumidity_1.textContent = "Humidity: " + townforecast.daily[0].humidity + " %";
     forecastHumidity_2.textContent = "Humidity: " + townforecast.daily[1].humidity + " %";
