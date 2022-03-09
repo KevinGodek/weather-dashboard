@@ -24,7 +24,7 @@ body {
 margin-right: 14px;
 }
 
-#currentUV {
+#currentUVIndex {
 background-color: lightgreen;
 border-radius: 5px;
 padding-left: 10px;
@@ -39,7 +39,7 @@ h1 {
   padding-top: 10px;
 }
 
-#cityIcon {
+#townIcon {
 font-size: 30px;
 font-weight: bold;
 }
