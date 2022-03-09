@@ -16,87 +16,86 @@
   </div>
 
 <main class="flex-row justify-space-between">
-    <!-- Search Column-->
-    <div class="col-12 col-md-3" id="searchSide">
-        <h2 class="form-label" for="username">Search for a town:</h2>
-        <form id="town-form">
-            <input name="townName" id="townName" type="text" autofocus="true" class="form-input" />
-            <button type="submit" id="searchButton" class="btn">Search</button>
-        </form>
-        <div id="savedLocations">
-        </div>
-    </div>
+  <!-- Search Column-->
+  <div class="col-12 col-md-3" id="searchSide">
+      <h2 class="form-label" for="username">Search for a town:</h2>
+      <form id="town-form">
+          <input name="townName" id="townName" type="text" autofocus="true" class="form-input" />
+          <button type="submit" id="searchButton" class="btn">Search</button>
+      </form>
+      <div id="savedLocations">
+      </div>
+  </div>
 
-    <!-- Weather Column -->
-    <div class="col-12 col-md-9" id="weatherSide">
-        <!-- Current Date -->
-        <div id="town-data">
-            <p style="float: left;" id="townIcon"></p><img id="currentIcon" src="" height="50px" width="50px"></p>
-            <p id="currentClimate"></p>
-            <p id="currentWind"></p>
-            <p id="currentHumidity"></p>
-            <p id="uv" style="float: left">UV Index: </p><button type="submit" id="currentUVIndex" disabled></button>
-        </div>
+  <!-- Weather Column -->
+  <div class="col-12 col-md-9" id="weatherSide">
+      <!-- Current Date -->
+      <div id="town-data">
+          <p style="float: left;" id="townIcon"></p><img id="currentIcon" src="" height="50px" width="50px"></p>
+          <p id="currentClimate"></p>
+          <p id="currentWind"></p>
+          <p id="currentHumidity"></p>
+          <p id="uv" style="float: left">UV Index: </p><button type="submit" id="currentUVIndex" disabled></button>
+      </div>
 
-        <!-- forecast -->
-        <div id="forecast">
-            <h3>5-Day forecast:</h3>
-            <div class="container">
-                <div class="card-deck">
-                    <div class="card" style="width: 10rem;">
-                        <div class="card-body">
-                            <h5 class="card-title" id="forecastDay-1"></h5>
-                            <img id="forecast-image-1" src=""/>
-                            <p id="climateDay-1"></p>
-                            <p id="windDay-1"></p>
-                            <p id="humidityDay-1"></p>
-                        </div>
-                    </div>
+      <!-- forecast -->
+      <div id="forecast">
+          <h3>5-Day forecast:</h3>
+          <div class="container">
+              <div class="card-deck">
+                  <div class="card" style="width: 10rem;">
+                      <div class="card-body">
+                          <h5 class="card-title" id="forecastDay-1"></h5>
+                          <img id="forecast-image-1" src=""/>
+                          <p id="climateDay-1"></p>
+                          <p id="windDay-1"></p>
+                          <p id="humidityDay-1"></p>
+                      </div>
+                  </div>
 
-                    <div class="card" style="width: 10rem;">
-                        <div class="card-body">
-                            <h5 class="card-title" id="forecastDay-2"></h5>
-                            <img id="forecast-image-2" src=""/>
-                            <p id="climateDay-2"></p>
-                            <p id="windDay-2"></p>
-                            <p id="humidityDay-2"></p>
-                        </div>
-                    </div>
+                  <div class="card" style="width: 10rem;">
+                      <div class="card-body">
+                          <h5 class="card-title" id="forecastDay-2"></h5>
+                          <img id="forecast-image-2" src=""/>
+                          <p id="climateDay-2"></p>
+                          <p id="windDay-2"></p>
+                          <p id="humidityDay-2"></p>
+                      </div>
+                  </div>
 
-                    <div class="card" style="width: 10rem;">
-                        <div class="card-body">
-                            <h5 class="card-title" id="forecastDay-3"></h5>
-                            <img id="forecast-image-3" src=""/>
-                            <p id="climateDay-3"></p>
-                            <p id="windDay-3"></p>
-                            <p id="humidityDay-3"></p>
-                        </div>
-                    </div>
+                  <div class="card" style="width: 10rem;">
+                      <div class="card-body">
+                          <h5 class="card-title" id="forecastDay-3"></h5>
+                          <img id="forecast-image-3" src=""/>
+                          <p id="climateDay-3"></p>
+                          <p id="windDay-3"></p>
+                          <p id="humidityDay-3"></p>
+                      </div>
+                  </div>
 
-                    <div class="card" style="width: 10rem;">
-                        <div class="card-body">
-                            <h5 class="card-title" id="forecastDay-4"></h5>
-                            <img id="forecast-image-4" src=""/>
-                            <p id="climateDay-4"></p>
-                            <p id="windDay-4"></p>
-                            <p id="humidityDay-4"></p>
-                        </div>
-                    </div>
+                  <div class="card" style="width: 10rem;">
+                      <div class="card-body">
+                          <h5 class="card-title" id="forecastDay-4"></h5>
+                          <img id="forecast-image-4" src=""/>
+                          <p id="climateDay-4"></p>
+                          <p id="windDay-4"></p>
+                          <p id="humidityDay-4"></p>
+                      </div>
+                  </div>
 
-                    <div class="card" style="width: 10rem;">
-                        <div class="card-body">
-                            <h5 class="card-title" id="forecastDay-5"></h5>
-                            <img id="forecast-image-5" src=""/>
-                            <p id="climateDay-5"></p>
-                            <p id="windDay-5"></p>
-                            <p id="humidityDay-5"></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
+                  <div class="card" style="width: 10rem;">
+                      <div class="card-body">
+                          <h5 class="card-title" id="forecastDay-5"></h5>
+                          <img id="forecast-image-5" src=""/>
+                          <p id="climateDay-5"></p>
+                          <p id="windDay-5"></p>
+                          <p id="humidityDay-5"></p>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
 </main>
 </body>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
