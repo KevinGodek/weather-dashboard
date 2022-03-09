@@ -45,80 +45,74 @@ let forecastIcon_5 = document.querySelector('#forecast-image-5');
 
 //API 
 let apiKey = "807260d60be85ac5c384c80bba453072";
-let city = "orlando";
+let town = "orlando";
 
 //Trackers for only displaying saved searches at correct times
 let savedRun = "";
-let previousCity = "";
+let pastTown = "";
 
 // Event Listener
 searchButtonEl.addEventListener("click", function() {
     console.log(townSearchEl.value)
     if (townSearchEl.value === "" || townSearchEl.value === " " || townSearchEl.value === null)  {
     } else {
-        city = townSearchEl.value;
-        getCurrentWeather();
-        saveCity(city[0].toUpperCase() + city.slice(1));
+        town = townSearchEl.value;
+        getCurrentClimate();
+        saveTown(town[0].toUpperCase() + town.slice(1));
         townSearchEl.value = "";
     }
 });
-
 $(document).on("click", ".saved", function() {
     let text = $(this)
         .text()
         .trim();
-   city = text;
-   previousCity = "yes";
-   getCurrentWeather();
+   town = text;
+   pastTown = "yes";
+   getCurrentClimate();
 });
 
 // Functions
-let getCurrentWeather = function() {
-    let apiURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey + "&units=imperial";
+let getCurrentClimate = function() {
+    let apiURL = "https://api.openweathermap.org/data/2.5/weather?q=" + town + "&appid=" + apiKey + "&units=imperial";
     fetch(apiURL).then(function(response) {
         response.json().then(function(data) {
-            displayCurrentWeather(data);
+            displayCurrentClimate(data);
         });
     });
-    
-    populatePastSearches();
+    getSearchHistory();
     savedRun = "yes";
 }
 
-function displayCurrentWeather(cityInfo) {
-    //temp
-    let currentClimate = cityInfo.main.temp;
+function displayCurrentClimate(townInfo) {
+    // climate
+    let currentClimate = townInfo.main.temp;
     currentClimateel.textContent = "Temp: " + currentClimate  + " \xB0 F";
-
-    //date
-    let currentDate = dateConvert(cityInfo.dt);
-
-    //current condition
-    let currentConditionIcon = cityInfo['weather'][0]['icon'];
-  
+    // day
+    let currentDate = dateConvert(townInfo.dt);
+    // current weather
+    let currentConditionIcon = townInfo['weather'][0]['icon'];
     //humidity
-    let humidity = cityInfo.main.humidity;
+    let humidity = townInfo.main.humidity;
     currentHumidityEl.textContent = "Humidity: " + humidity + " %";
 
     //wind speed
-    let windSpeed = cityInfo.wind.speed;
+    let windSpeed = townInfo.wind.speed;
     currentWindEl.textContent = "Wind: " + windSpeed + " MPH";
 
-    //city name
-    townNameEl.textContent = city[0].toUpperCase() + city.slice(1) + " (" + currentDate + ")";
+    //town name
+    townNameEl.textContent = town[0].toUpperCase() + town.slice(1) + " (" + currentDate + ")";
 
     currentImage.src = "http://www.openweathermap.org/img/wn/" + currentConditionIcon + "@2x.png";
 
     //get lat and long to get uvindex
-    let cityLat = cityInfo.coord.lat;
-    let cityLong = cityInfo.coord.lon;
+    let townLat = townInfo.coord.lat;
+    let townLong = townInfo.coord.lon;
 
-    displayUVforecast(cityLat, cityLong)
+    displayUvIndexForecast(townLat, townLong)
 }
 
-function displayUVforecast(lat, long) {
+function displayUvIndexForecast(lat, long) {
      uvforecastURL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat +  "&lon=" + long+ "&exclude={part}&appid=" + apiKey + "&units=imperial";
-
     fetch(uvforecastURL).then(function(response) {
         response.json().then(function(uvforecastData) {
             //uv index
@@ -130,40 +124,35 @@ function displayUVforecast(lat, long) {
                 currentUvIndexEl.style.backgroundColor = "#AA0000";
             } 
             currentUvIndexEl.textContent =  uvIndex;
-            displayforecast(uvforecastData);
+            dispalyWeatherForecast(uvforecastData);
         });
     });
 }
 
-function displayforecast(cityforecast) {
-
-    //temp
-    forecastClimate_1.textContent = "Temp: " + cityforecast.daily[0].temp.day + " \xB0 F"; 
-    forecastClimate_2.textContent = "Temp: " + cityforecast.daily[1].temp.day + " \xB0 F"; 
-    forecastClimate_3.textContent = "Temp: " + cityforecast.daily[2].temp.day + " \xB0 F"; 
-    forecastClimate_4.textContent = "Temp: " + cityforecast.daily[3].temp.day + " \xB0 F"; 
-    forecastClimate_5.textContent = "Temp: " + cityforecast.daily[4].temp.day + " \xB0 F"; 
-
-    //date
-    let currentDate_1 = dateConvert(cityforecast.daily[0].dt);
-    let currentDate_2 = dateConvert(cityforecast.daily[1].dt);
-    let currentDate_3 = dateConvert(cityforecast.daily[2].dt);
-    let currentDate_4 = dateConvert(cityforecast.daily[3].dt);
-    let currentDate_5 = dateConvert(cityforecast.daily[4].dt);
-    
-    forecastDay_1.textContent = currentDate_1;
-    forecastDay_2.textContent = currentDate_2;
-    forecastDay_3.textContent = currentDate_3;
-    forecastDay_4.textContent = currentDate_4;
-    forecastDay_5.textContent = currentDate_5;
-
+function dispalyWeatherForecast(townforecast) {
+    // climate
+    forecastClimate_1.textContent = "Temp: " + townforecast.daily[0].temp.day + " \xB0 F"; 
+    forecastClimate_2.textContent = "Temp: " + townforecast.daily[1].temp.day + " \xB0 F"; 
+    forecastClimate_3.textContent = "Temp: " + townforecast.daily[2].temp.day + " \xB0 F"; 
+    forecastClimate_4.textContent = "Temp: " + townforecast.daily[3].temp.day + " \xB0 F"; 
+    forecastClimate_5.textContent = "Temp: " + townforecast.daily[4].temp.day + " \xB0 F"; 
+    // day
+    let currentDay_1 = dateConvert(townforecast.daily[0].dt);
+    let currentDay_2 = dateConvert(townforecast.daily[1].dt);
+    let currentDay_3 = dateConvert(townforecast.daily[2].dt);
+    let currentDay_4 = dateConvert(townforecast.daily[3].dt);
+    let currentDay_5 = dateConvert(townforecast.daily[4].dt);
+    forecastDay_1.textContent = currentDay_1;
+    forecastDay_2.textContent = currentDay_2;
+    forecastDay_3.textContent = currentDay_3;
+    forecastDay_4.textContent = currentDay_4;
+    forecastDay_5.textContent = currentDay_5;
     //icon
-    let icon_1 = cityforecast.daily[0].weather[0].icon;
-    let icon_2 = cityforecast.daily[1].weather[0].icon;
-    let icon_3 = cityforecast.daily[2].weather[0].icon;
-    let icon_4 = cityforecast.daily[3].weather[0].icon;
-    let icon_5 = cityforecast.daily[4].weather[0].icon;
-
+    let icon_1 = townforecast.daily[0].weather[0].icon;
+    let icon_2 = townforecast.daily[1].weather[0].icon;
+    let icon_3 = townforecast.daily[2].weather[0].icon;
+    let icon_4 = townforecast.daily[3].weather[0].icon;
+    let icon_5 = townforecast.daily[4].weather[0].icon;
     forecastIcon_1.src = "http://www.openweathermap.org/img/wn/" + icon_1 + "@2x.png";
     forecastIcon_2.src = "http://www.openweathermap.org/img/wn/" + icon_2 + "@2x.png";
     forecastIcon_3.src = "http://www.openweathermap.org/img/wn/" + icon_3 + "@2x.png";
@@ -171,18 +160,18 @@ function displayforecast(cityforecast) {
     forecastIcon_5.src = "http://www.openweathermap.org/img/wn/" + icon_5 + "@2x.png";
 
     //wind
-    forecastWind_1.textContent = "Wind: " + cityforecast.daily[0].wind_speed + "MPH";
-    forecastWind_2.textContent = "Wind: " + cityforecast.daily[1].wind_speed + "MPH";
-    forecastWind_3.textContent = "Wind: " + cityforecast.daily[2].wind_speed + "MPH";
-    forecastWind_4.textContent = "Wind: " + cityforecast.daily[3].wind_speed + "MPH";
-    forecastWind_5.textContent = "Wind: " + cityforecast.daily[4].wind_speed + "MPH";
+    forecastWind_1.textContent = "Wind: " + townforecast.daily[0].wind_speed + "MPH";
+    forecastWind_2.textContent = "Wind: " + townforecast.daily[1].wind_speed + "MPH";
+    forecastWind_3.textContent = "Wind: " + townforecast.daily[2].wind_speed + "MPH";
+    forecastWind_4.textContent = "Wind: " + townforecast.daily[3].wind_speed + "MPH";
+    forecastWind_5.textContent = "Wind: " + townforecast.daily[4].wind_speed + "MPH";
 
     //humidty
-    forecastHumidity_1.textContent = "Humidity: " + cityforecast.daily[0].humidity + " %";
-    forecastHumidity_2.textContent = "Humidity: " + cityforecast.daily[1].humidity + " %";
-    forecastHumidity_3.textContent = "Humidity: " + cityforecast.daily[2].humidity + " %";
-    forecastHumidity_4.textContent = "Humidity: " + cityforecast.daily[3].humidity + " %";
-    forecastHumidity_5.textContent = "Humidity: " + cityforecast.daily[4].humidity + " %";
+    forecastHumidity_1.textContent = "Humidity: " + townforecast.daily[0].humidity + " %";
+    forecastHumidity_2.textContent = "Humidity: " + townforecast.daily[1].humidity + " %";
+    forecastHumidity_3.textContent = "Humidity: " + townforecast.daily[2].humidity + " %";
+    forecastHumidity_4.textContent = "Humidity: " + townforecast.daily[3].humidity + " %";
+    forecastHumidity_5.textContent = "Humidity: " + townforecast.daily[4].humidity + " %";
 }
 
 function dateConvert(unixDate) {
@@ -190,47 +179,42 @@ function dateConvert(unixDate) {
     let dd = String(myDate.getDate()).padStart(2, '0');
     let mm = String(myDate.getMonth() + 1).padStart(2, '0'); 
     let yyyy = myDate.getFullYear();
-    
     myDate = mm + '/' + dd + '/' + yyyy;
-
     return(myDate);
 }
 
-let saveCity = function(townName) {
-    const searchedCity = {
-        city: townName,
+let saveTown = function(townName) {
+    const searchedTown = {
+        town: townName,
     }
-    searchedTowns.push(searchedCity);
+    searchedTowns.push(searchedTown);
     localStorage.setItem("searchedTowns", JSON.stringify(searchedTowns));
 }
 
-function populatePastSearches() {
-
-    if (previousCity === "yes") {
-        previousCity = "";
+function getSearchHistory() {
+    if (pastTown === "yes") {
+        pastTown = "";
     } else {
         if (savedRun === "yes") {
-            let previousCityEl = document.createElement("button");
-            previousCityEl.id = "previousCity-"+searchedTowns.length ;
-            previousCityEl.className = "saved btn";
-            previousCityEl.textContent = city[0].toUpperCase() + city.slice(1);
-            previousCityEl.style.backgroundColor = '#D3D3D3';
-            savedTownEl.append(previousCityEl);
+            let previousTownEl = document.createElement("button");
+            previousTownEl.id = "pastTown-"+searchedTowns.length ;
+            previousTownEl.className = "saved btn";
+            previousTownEl.textContent = town[0].toUpperCase() + town.slice(1);
+            previousTownEl.style.backgroundColor = '#D3D3D3';
+            savedTownEl.append(previousTownEl);
         } else {
             if (searchedTowns.length > 0) {
                 for (let j = 0; j < searchedTowns.length; j++) {
-                    
-                   let previousCityEl = document.createElement("button");
-                   previousCityEl.id = "previousCity-"+j;
-                   previousCityEl.className = "saved btn";
-                   previousCityEl.textContent = searchedTowns[j].city;
-                   previousCityEl.style.backgroundColor = '#D3D3D3';
-                   savedTownEl.append(previousCityEl);
-                   
+                   let previousTownEl = document.createElement("button");
+                   previousTownEl.id = "pastTown-"+j;
+                   previousTownEl.className = "saved btn";
+                   previousTownEl.textContent = searchedTowns[j].town;
+                   previousTownEl.style.backgroundColor = '#D3D3D3';
+                   savedTownEl.append(previousTownEl); 
                 }
             }
         }
     }
 }
 
-getCurrentWeather();
+getCurrentClimate();
