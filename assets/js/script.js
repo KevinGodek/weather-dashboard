@@ -1,17 +1,16 @@
 // variables
-let searchFormEl = document.querySelector('#city-form');
-let citySearchEl = document.querySelector('#cityName');
+let searchFormEl = document.querySelector('#town-form');
+let townSearchEl = document.querySelector('#townName');
 let searchButtonEl = document.querySelector('#searchButton');
-const searchedCities = JSON.parse(localStorage.getItem("searchedCities")) || [];
-let savedLocationEl = document.querySelector('#savedLocations');
-// weather box
-let cityNameEl = document.querySelector('#cityIcon');
-let currentTempEl = document.querySelector('#currentTemp');
+const searchedTowns = JSON.parse(localStorage.getItem("searchedTowns")) || [];
+let savedTownEl = document.querySelector('#savedLocations');
+// weather dashboard
+let townNameEl = document.querySelector('#cityIcon');
+let currentTownEl = document.querySelector('#currentTemp');
 let currentWindEl = document.querySelector('#currentWind');
 let currentHumidityEl = document.querySelector('#currentHumidity');
 let currentUVEl = document.querySelector('#currentUV');
 let currentImage = document.querySelector('#currentIcon');
-
 // forecast
 let forecastDate_1 = document.querySelector('#titleDay-1');
 let forecastTemp_1 = document.querySelector('#tempDay-1');
@@ -57,13 +56,13 @@ let previousCity = "";
 searchButtonEl.addEventListener("click", function() {
     event.preventDefault();
 
-    console.log(citySearchEl.value)
-    if (citySearchEl.value === "" || citySearchEl.value === " " || citySearchEl.value === null)  {
+    console.log(townSearchEl.value)
+    if (townSearchEl.value === "" || townSearchEl.value === " " || townSearchEl.value === null)  {
     } else {
-        city = citySearchEl.value;
+        city = townSearchEl.value;
         getCurrentWeather();
         saveCity(city[0].toUpperCase() + city.slice(1));
-        citySearchEl.value = "";
+        townSearchEl.value = "";
     }
 });
 
@@ -92,7 +91,7 @@ let getCurrentWeather = function() {
 function displayCurrentWeather(cityInfo) {
     //temp
     let currentTemp = cityInfo.main.temp;
-    currentTempEl.textContent = "Temp: " + currentTemp  + " \xB0 F";
+    currentTownEl.textContent = "Temp: " + currentTemp  + " \xB0 F";
 
     //date
     let currentDate = dateConvert(cityInfo.dt);
@@ -109,7 +108,7 @@ function displayCurrentWeather(cityInfo) {
     currentWindEl.textContent = "Wind: " + windSpeed + " MPH";
 
     //city name
-    cityNameEl.textContent = city[0].toUpperCase() + city.slice(1) + " (" + currentDate + ")";
+    townNameEl.textContent = city[0].toUpperCase() + city.slice(1) + " (" + currentDate + ")";
 
     currentImage.src = "http://www.openweathermap.org/img/wn/" + currentConditionIcon + "@2x.png";
 
@@ -200,12 +199,12 @@ function dateConvert(unixDate) {
     return(myDate);
 }
 
-let saveCity = function(cityName) {
+let saveCity = function(townName) {
     const searchedCity = {
-        city: cityName,
+        city: townName,
     }
-    searchedCities.push(searchedCity);
-    localStorage.setItem("searchedCities", JSON.stringify(searchedCities));
+    searchedTowns.push(searchedCity);
+    localStorage.setItem("searchedTowns", JSON.stringify(searchedTowns));
 }
 
 function populatePastSearches() {
@@ -215,21 +214,21 @@ function populatePastSearches() {
     } else {
         if (savedRun === "yes") {
             let previousCityEl = document.createElement("button");
-            previousCityEl.id = "previousCity-"+searchedCities.length ;
+            previousCityEl.id = "previousCity-"+searchedTowns.length ;
             previousCityEl.className = "saved btn";
             previousCityEl.textContent = city[0].toUpperCase() + city.slice(1);
             previousCityEl.style.backgroundColor = '#D3D3D3';
-            savedLocationEl.append(previousCityEl);
+            savedTownEl.append(previousCityEl);
         } else {
-            if (searchedCities.length > 0) {
-                for (let j = 0; j < searchedCities.length; j++) {
+            if (searchedTowns.length > 0) {
+                for (let j = 0; j < searchedTowns.length; j++) {
                     
                    let previousCityEl = document.createElement("button");
                    previousCityEl.id = "previousCity-"+j;
                    previousCityEl.className = "saved btn";
-                   previousCityEl.textContent = searchedCities[j].city;
+                   previousCityEl.textContent = searchedTowns[j].city;
                    previousCityEl.style.backgroundColor = '#D3D3D3';
-                   savedLocationEl.append(previousCityEl);
+                   savedTownEl.append(previousCityEl);
                    
                 }
             }
