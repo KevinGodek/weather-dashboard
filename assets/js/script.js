@@ -1,59 +1,57 @@
-// Variables
-//search side
-var searchFormEl = document.querySelector('#city-form');
-var citySearchEl = document.querySelector('#cityName');
-var searchButtonEl = document.querySelector('#searchButton');
+// variables
+let searchFormEl = document.querySelector('#city-form');
+let citySearchEl = document.querySelector('#cityName');
+let searchButtonEl = document.querySelector('#searchButton');
 const searchedCities = JSON.parse(localStorage.getItem("searchedCities")) || [];
-var savedLocationEl = document.querySelector('#savedLocations');
+let savedLocationEl = document.querySelector('#savedLocations');
+// weather box
+let cityNameEl = document.querySelector('#cityIcon');
+let currentTempEl = document.querySelector('#currentTemp');
+let currentWindEl = document.querySelector('#currentWind');
+let currentHumidityEl = document.querySelector('#currentHumidity');
+let currentUVEl = document.querySelector('#currentUV');
+let currentImage = document.querySelector('#currentIcon');
 
-//current weather box
-var cityNameEl = document.querySelector('#cityNameDateIcon');
-var currentTempEl = document.querySelector('#currentTemp');
-var currentWindEl = document.querySelector('#currentWind');
-var currentHumidityEl = document.querySelector('#currentHumidity');
-var currentUVEl = document.querySelector('#currentUV');
-var currentImage = document.querySelector('#currentIcon');
+// forecast
+let forecastDate_1 = document.querySelector('#titleDay-1');
+let forecastTemp_1 = document.querySelector('#tempDay-1');
+let forecastWind_1 = document.querySelector('#windDay-1');
+let forecastHumidity_1 = document.querySelector('#humidityDay-1');
 
-//Forcast
-var forcastDate_1 = document.querySelector('#titleDay-1');
-var forcastTemp_1 = document.querySelector('#tempDay-1');
-var forcastWind_1 = document.querySelector('#windDay-1');
-var forcastHumidity_1 = document.querySelector('#humidityDay-1');
+let forecastDate_2 = document.querySelector('#titleDay-2');
+let forecastTemp_2 = document.querySelector('#tempDay-2');
+let forecastWind_2 = document.querySelector('#windDay-2');
+let forecastHumidity_2 = document.querySelector('#humidityDay-2');
 
-var forcastDate_2 = document.querySelector('#titleDay-2');
-var forcastTemp_2 = document.querySelector('#tempDay-2');
-var forcastWind_2 = document.querySelector('#windDay-2');
-var forcastHumidity_2 = document.querySelector('#humidityDay-2');
+let forecastDate_3 = document.querySelector('#titleDay-3');
+let forecastTemp_3 = document.querySelector('#tempDay-3');
+let forecastWind_3 = document.querySelector('#windDay-3');
+let forecastHumidity_3 = document.querySelector('#humidityDay-3');
 
-var forcastDate_3 = document.querySelector('#titleDay-3');
-var forcastTemp_3 = document.querySelector('#tempDay-3');
-var forcastWind_3 = document.querySelector('#windDay-3');
-var forcastHumidity_3 = document.querySelector('#humidityDay-3');
+let forecastDate_4 = document.querySelector('#titleDay-4');
+let forecastTemp_4 = document.querySelector('#tempDay-4');
+let forecastWind_4 = document.querySelector('#windDay-4');
+let forecastHumidity_4 = document.querySelector('#humidityDay-4');
 
-var forcastDate_4 = document.querySelector('#titleDay-4');
-var forcastTemp_4 = document.querySelector('#tempDay-4');
-var forcastWind_4 = document.querySelector('#windDay-4');
-var forcastHumidity_4 = document.querySelector('#humidityDay-4');
+let forecastDate_5 = document.querySelector('#titleDay-5');
+let forecastTemp_5 = document.querySelector('#tempDay-5');
+let forecastWind_5 = document.querySelector('#windDay-5');
+let forecastHumidity_5 = document.querySelector('#humidityDay-5');
 
-var forcastDate_5 = document.querySelector('#titleDay-5');
-var forcastTemp_5 = document.querySelector('#tempDay-5');
-var forcastWind_5 = document.querySelector('#windDay-5');
-var forcastHumidity_5 = document.querySelector('#humidityDay-5');
-
-var forcastImage_1 = document.querySelector('#forcast-image-1');
-var forcastImage_2 = document.querySelector('#forcast-image-2');
-var forcastImage_3 = document.querySelector('#forcast-image-3');
-var forcastImage_4 = document.querySelector('#forcast-image-4');
-var forcastImage_5 = document.querySelector('#forcast-image-5');
+let forecastImage_1 = document.querySelector('#forecast-image-1');
+let forecastImage_2 = document.querySelector('#forecast-image-2');
+let forecastImage_3 = document.querySelector('#forecast-image-3');
+let forecastImage_4 = document.querySelector('#forecast-image-4');
+let forecastImage_5 = document.querySelector('#forecast-image-5');
 
 
 //API 
-var apiKey = "807260d60be85ac5c384c80bba453072";
-var city = "orlando";
+let apiKey = "807260d60be85ac5c384c80bba453072";
+let city = "orlando";
 
 //Trackers for only displaying saved searches at correct times
-var savedRun = "";
-var previousCity = "";
+let savedRun = "";
+let previousCity = "";
 
 // Event Listener
 searchButtonEl.addEventListener("click", function() {
@@ -67,23 +65,20 @@ searchButtonEl.addEventListener("click", function() {
         saveCity(city[0].toUpperCase() + city.slice(1));
         citySearchEl.value = "";
     }
-    
 });
 
 $(document).on("click", ".saved", function() {
-    var text = $(this)
+    let text = $(this)
         .text()
         .trim();
-    
    city = text;
    previousCity = "yes";
-
    getCurrentWeather();
 });
 
 // Functions
-var getCurrentWeather = function() {
-    var apiURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey + "&units=imperial";
+let getCurrentWeather = function() {
+    let apiURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey + "&units=imperial";
     fetch(apiURL).then(function(response) {
         response.json().then(function(data) {
             displayCurrentWeather(data);
@@ -96,21 +91,21 @@ var getCurrentWeather = function() {
 
 function displayCurrentWeather(cityInfo) {
     //temp
-    var currentTemp = cityInfo.main.temp;
+    let currentTemp = cityInfo.main.temp;
     currentTempEl.textContent = "Temp: " + currentTemp  + " \xB0 F";
 
     //date
-    var currentDate = dateConvert(cityInfo.dt);
+    let currentDate = dateConvert(cityInfo.dt);
 
     //current condition
-    var currentConditionIcon = cityInfo['weather'][0]['icon'];
+    let currentConditionIcon = cityInfo['weather'][0]['icon'];
   
     //humidity
-    var humidity = cityInfo.main.humidity;
+    let humidity = cityInfo.main.humidity;
     currentHumidityEl.textContent = "Humidity: " + humidity + " %";
 
     //wind speed
-    var windSpeed = cityInfo.wind.speed;
+    let windSpeed = cityInfo.wind.speed;
     currentWindEl.textContent = "Wind: " + windSpeed + " MPH";
 
     //city name
@@ -119,19 +114,19 @@ function displayCurrentWeather(cityInfo) {
     currentImage.src = "http://www.openweathermap.org/img/wn/" + currentConditionIcon + "@2x.png";
 
     //get lat and long to get uvindex
-    var cityLat = cityInfo.coord.lat;
-    var cityLong = cityInfo.coord.lon;
+    let cityLat = cityInfo.coord.lat;
+    let cityLong = cityInfo.coord.lon;
 
-    displayUVForcast(cityLat, cityLong)
+    displayUVforecast(cityLat, cityLong)
 }
 
-function displayUVForcast(lat, long) {
-     uvForcastURL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat +  "&lon=" + long+ "&exclude={part}&appid=" + apiKey + "&units=imperial";
+function displayUVforecast(lat, long) {
+     uvforecastURL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat +  "&lon=" + long+ "&exclude={part}&appid=" + apiKey + "&units=imperial";
 
-    fetch(uvForcastURL).then(function(response) {
-        response.json().then(function(uvForcastData) {
+    fetch(uvforecastURL).then(function(response) {
+        response.json().then(function(uvforecastData) {
             //uv index
-            var uvIndex = uvForcastData.current.uvi;
+            let uvIndex = uvforecastData.current.uvi;
             if (uvIndex >= 3) {
                 currentUVEl.style.backgroundColor = "#FFFF00";
             }
@@ -139,73 +134,73 @@ function displayUVForcast(lat, long) {
                 currentUVEl.style.backgroundColor = "#AA0000";
             } 
             currentUVEl.textContent =  uvIndex;
-            displayForcast(uvForcastData);
+            displayforecast(uvforecastData);
         });
     });
 }
 
-function displayForcast(cityForcast) {
+function displayforecast(cityforecast) {
 
     //temp
-    forcastTemp_1.textContent = "Temp: " + cityForcast.daily[0].temp.day + " \xB0 F"; 
-    forcastTemp_2.textContent = "Temp: " + cityForcast.daily[1].temp.day + " \xB0 F"; 
-    forcastTemp_3.textContent = "Temp: " + cityForcast.daily[2].temp.day + " \xB0 F"; 
-    forcastTemp_4.textContent = "Temp: " + cityForcast.daily[3].temp.day + " \xB0 F"; 
-    forcastTemp_5.textContent = "Temp: " + cityForcast.daily[4].temp.day + " \xB0 F"; 
+    forecastTemp_1.textContent = "Temp: " + cityforecast.daily[0].temp.day + " \xB0 F"; 
+    forecastTemp_2.textContent = "Temp: " + cityforecast.daily[1].temp.day + " \xB0 F"; 
+    forecastTemp_3.textContent = "Temp: " + cityforecast.daily[2].temp.day + " \xB0 F"; 
+    forecastTemp_4.textContent = "Temp: " + cityforecast.daily[3].temp.day + " \xB0 F"; 
+    forecastTemp_5.textContent = "Temp: " + cityforecast.daily[4].temp.day + " \xB0 F"; 
 
     //date
-    var currentDate_1 = dateConvert(cityForcast.daily[0].dt);
-    var currentDate_2 = dateConvert(cityForcast.daily[1].dt);
-    var currentDate_3 = dateConvert(cityForcast.daily[2].dt);
-    var currentDate_4 = dateConvert(cityForcast.daily[3].dt);
-    var currentDate_5 = dateConvert(cityForcast.daily[4].dt);
+    let currentDate_1 = dateConvert(cityforecast.daily[0].dt);
+    let currentDate_2 = dateConvert(cityforecast.daily[1].dt);
+    let currentDate_3 = dateConvert(cityforecast.daily[2].dt);
+    let currentDate_4 = dateConvert(cityforecast.daily[3].dt);
+    let currentDate_5 = dateConvert(cityforecast.daily[4].dt);
     
-    forcastDate_1.textContent = currentDate_1;
-    forcastDate_2.textContent = currentDate_2;
-    forcastDate_3.textContent = currentDate_3;
-    forcastDate_4.textContent = currentDate_4;
-    forcastDate_5.textContent = currentDate_5;
+    forecastDate_1.textContent = currentDate_1;
+    forecastDate_2.textContent = currentDate_2;
+    forecastDate_3.textContent = currentDate_3;
+    forecastDate_4.textContent = currentDate_4;
+    forecastDate_5.textContent = currentDate_5;
 
     //icon
-    var icon_1 = cityForcast.daily[0].weather[0].icon;
-    var icon_2 = cityForcast.daily[1].weather[0].icon;
-    var icon_3 = cityForcast.daily[2].weather[0].icon;
-    var icon_4 = cityForcast.daily[3].weather[0].icon;
-    var icon_5 = cityForcast.daily[4].weather[0].icon;
+    let icon_1 = cityforecast.daily[0].weather[0].icon;
+    let icon_2 = cityforecast.daily[1].weather[0].icon;
+    let icon_3 = cityforecast.daily[2].weather[0].icon;
+    let icon_4 = cityforecast.daily[3].weather[0].icon;
+    let icon_5 = cityforecast.daily[4].weather[0].icon;
 
-    forcastImage_1.src = "http://www.openweathermap.org/img/wn/" + icon_1 + "@2x.png";
-    forcastImage_2.src = "http://www.openweathermap.org/img/wn/" + icon_2 + "@2x.png";
-    forcastImage_3.src = "http://www.openweathermap.org/img/wn/" + icon_3 + "@2x.png";
-    forcastImage_4.src = "http://www.openweathermap.org/img/wn/" + icon_4 + "@2x.png";
-    forcastImage_5.src = "http://www.openweathermap.org/img/wn/" + icon_5 + "@2x.png";
+    forecastImage_1.src = "http://www.openweathermap.org/img/wn/" + icon_1 + "@2x.png";
+    forecastImage_2.src = "http://www.openweathermap.org/img/wn/" + icon_2 + "@2x.png";
+    forecastImage_3.src = "http://www.openweathermap.org/img/wn/" + icon_3 + "@2x.png";
+    forecastImage_4.src = "http://www.openweathermap.org/img/wn/" + icon_4 + "@2x.png";
+    forecastImage_5.src = "http://www.openweathermap.org/img/wn/" + icon_5 + "@2x.png";
 
     //wind
-    forcastWind_1.textContent = "Wind: " + cityForcast.daily[0].wind_speed + "MPH";
-    forcastWind_2.textContent = "Wind: " + cityForcast.daily[1].wind_speed + "MPH";
-    forcastWind_3.textContent = "Wind: " + cityForcast.daily[2].wind_speed + "MPH";
-    forcastWind_4.textContent = "Wind: " + cityForcast.daily[3].wind_speed + "MPH";
-    forcastWind_5.textContent = "Wind: " + cityForcast.daily[4].wind_speed + "MPH";
+    forecastWind_1.textContent = "Wind: " + cityforecast.daily[0].wind_speed + "MPH";
+    forecastWind_2.textContent = "Wind: " + cityforecast.daily[1].wind_speed + "MPH";
+    forecastWind_3.textContent = "Wind: " + cityforecast.daily[2].wind_speed + "MPH";
+    forecastWind_4.textContent = "Wind: " + cityforecast.daily[3].wind_speed + "MPH";
+    forecastWind_5.textContent = "Wind: " + cityforecast.daily[4].wind_speed + "MPH";
 
     //humidty
-    forcastHumidity_1.textContent = "Humidity: " + cityForcast.daily[0].humidity + " %";
-    forcastHumidity_2.textContent = "Humidity: " + cityForcast.daily[1].humidity + " %";
-    forcastHumidity_3.textContent = "Humidity: " + cityForcast.daily[2].humidity + " %";
-    forcastHumidity_4.textContent = "Humidity: " + cityForcast.daily[3].humidity + " %";
-    forcastHumidity_5.textContent = "Humidity: " + cityForcast.daily[4].humidity + " %";
+    forecastHumidity_1.textContent = "Humidity: " + cityforecast.daily[0].humidity + " %";
+    forecastHumidity_2.textContent = "Humidity: " + cityforecast.daily[1].humidity + " %";
+    forecastHumidity_3.textContent = "Humidity: " + cityforecast.daily[2].humidity + " %";
+    forecastHumidity_4.textContent = "Humidity: " + cityforecast.daily[3].humidity + " %";
+    forecastHumidity_5.textContent = "Humidity: " + cityforecast.daily[4].humidity + " %";
 }
 
 function dateConvert(unixDate) {
-    var myDate = new Date(unixDate*1000);
-    var dd = String(myDate.getDate()).padStart(2, '0');
-    var mm = String(myDate.getMonth() + 1).padStart(2, '0'); 
-    var yyyy = myDate.getFullYear();
+    let myDate = new Date(unixDate*1000);
+    let dd = String(myDate.getDate()).padStart(2, '0');
+    let mm = String(myDate.getMonth() + 1).padStart(2, '0'); 
+    let yyyy = myDate.getFullYear();
     
     myDate = mm + '/' + dd + '/' + yyyy;
 
     return(myDate);
 }
 
-var saveCity = function(cityName) {
+let saveCity = function(cityName) {
     const searchedCity = {
         city: cityName,
     }
@@ -219,7 +214,7 @@ function populatePastSearches() {
         previousCity = "";
     } else {
         if (savedRun === "yes") {
-            var previousCityEl = document.createElement("button");
+            let previousCityEl = document.createElement("button");
             previousCityEl.id = "previousCity-"+searchedCities.length ;
             previousCityEl.className = "saved btn";
             previousCityEl.textContent = city[0].toUpperCase() + city.slice(1);
@@ -227,9 +222,9 @@ function populatePastSearches() {
             savedLocationEl.append(previousCityEl);
         } else {
             if (searchedCities.length > 0) {
-                for (var j = 0; j < searchedCities.length; j++) {
+                for (let j = 0; j < searchedCities.length; j++) {
                     
-                   var previousCityEl = document.createElement("button");
+                   let previousCityEl = document.createElement("button");
                    previousCityEl.id = "previousCity-"+j;
                    previousCityEl.className = "saved btn";
                    previousCityEl.textContent = searchedCities[j].city;
